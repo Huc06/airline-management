@@ -1,38 +1,47 @@
-.App {
+/* src/App.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #0072B8;
+  color: white;
+  padding: 15px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.hero {
+  position: relative;
+  background-image: url('https://th.bing.com/th/id/R.d2db51695255464cce667128a98a30c5?rik=cwDq5%2fxm%2fAOy4Q&pid=ImgRaw&r=0'); 
+  background-size: cover;
+  height: 400px;
+  color: white;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-align: center;
+}
+
+.promotion {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #0072B8;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
