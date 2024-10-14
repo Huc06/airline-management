@@ -1,18 +1,31 @@
+// airline-management/flight-management-backend/controllers/bookingcontroller.js
 const db = require("../models");
 const Booking = db.booking;
+const Passenger = db.passenger; // Nhập mô hình Passenger
+const Flight = db.flight; // Nhập mô hình Flight
 
 // Tạo đặt chỗ
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     console.log("Request Body:", req.body);
-    if (!req.body.passenger_id || !req.body.flight_id) {
-        return res.status(400).send({ message: "Passenger ID and Flight ID are required!" });
+    const { passenger_id, flightNumber, status, payment_status } = req.body;
+
+    // Kiểm tra xem passenger_id có tồn tại không
+    const passengerExists = await Passenger.findByPk(passenger_id);
+    if (!passengerExists) {
+        return res.status(400).send({ message: "Passenger ID does not exist!" });
+    }
+
+    // Kiểm tra xem flightNumber có tồn tại không
+    const flightExists = await Flight.findOne({ where: { flightNumber: flightNumber } });
+    if (!flightExists) {
+        return res.status(400).send({ message: "Flight Number does not exist!" });
     }
 
     const booking = {
-        passenger_id: req.body.passenger_id,
-        flight_id: req.body.flight_id,
-        status: req.body.status || "Confirmed", // Mặc định là "Confirmed" nếu không có
-        payment_status: req.body.payment_status || "Unpaid", // Mặc định là "Unpaid" nếu không có
+        passenger_id,
+        flight_id: flightExists.flight_id, // Lấy flight_id từ flightExists
+        status: status || "Confirmed", // Mặc định là "Confirmed" nếu không có
+        payment_status: payment_status || "Unpaid", // Mặc định là "Unpaid" nếu không có
     };
 
     Booking.create(booking)
