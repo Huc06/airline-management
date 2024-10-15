@@ -3,7 +3,7 @@ module.exports = (app) => {
     const passengers = require("../controllers/passengercontroller");
     const bookings = require("../controllers/bookingcontroller"); 
     const auth = require("../controllers/authController"); 
-
+    const payments = require("../controllers/paymentController");
   
     const router = require("express").Router();
 
@@ -52,4 +52,24 @@ module.exports = (app) => {
     bookingRouter.delete("/:id", bookings.delete); // Route để xóa đặt chỗ theo ID
   
     app.use("/api/bookings", bookingRouter); // Đăng ký router cho đặt chỗ
+
+    // Routes cho thanh toán
+    const paymentRouter = require("express").Router();
+
+    // Tạo thanh toán
+    paymentRouter.post("/", payments.createPayment); // Route để tạo thanh toán
+  
+    // Lấy tất cả thanh toán
+    paymentRouter.get("/", payments.getAllPayments); // Route để lấy tất cả thanh toán
+  
+    // Lấy thanh toán theo ID
+    paymentRouter.get("/:id", payments.getPaymentById); // Route để lấy thanh toán theo ID
+  
+    // Cập nhật thanh toán
+    paymentRouter.put("/:id", payments.updatePayment); // Route để cập nhật thanh toán
+  
+    // Xóa thanh toán
+    paymentRouter.delete("/:id", payments.deletePayment); // Route để xóa thanh toán
+  
+    app.use("/api/payments", paymentRouter);
 };

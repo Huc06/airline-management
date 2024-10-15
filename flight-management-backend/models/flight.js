@@ -1,5 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
     const Flight = sequelize.define("flight", {
+      // flight_id: { 
+      //   type: Sequelize.INTEGER,
+      //   autoIncrement: true,
+      //   primaryKey: true,
+      // },
       flightNumber: {
         type: Sequelize.STRING,
         allowNull: false,

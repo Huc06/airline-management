@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             references: {
                 model: 'flights', // Tên bảng chuyến bay
-                key: 'flight_id', // Khóa chính trong bảng chuyến bay
+                key: 'id', // Khóa chính trong bảng chuyến bay
             },
         },
         booking_date: {
