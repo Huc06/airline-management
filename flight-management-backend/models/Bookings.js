@@ -9,39 +9,35 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'passengers', // Tên bảng hành khách
-                key: 'passenger_id', // Khóa chính trong bảng hành khách
+                model: 'passengers',
+                key: 'passenger_id',
             },
         },
         flight_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'flights', // Tên bảng chuyến bay
-                key: 'id', // Khóa chính trong bảng chuyến bay
+                model: 'flights',
+                key: 'flight_id',
             },
-        },
-        booking_date: {
-            type: Sequelize.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), // Mặc định là thời gian hiện tại
         },
         status: {
             type: Sequelize.STRING(20),
-            allowNull: true, // Có thể để null nếu không bắt buộc
+            defaultValue: "Confirmed",
         },
         payment_status: {
             type: Sequelize.STRING(20),
-            allowNull: true, // Có thể để null nếu không bắt buộc
+            defaultValue: "Unpaid",
         },
     }, {
-        tableName: 'bookings', // Tên bảng trong cơ sở dữ liệu
+        tableName: 'bookings',
         timestamps: true, // Tạo các trường createdAt và updatedAt
     });
 
     Booking.associate = function(models) {
-        // Định nghĩa các mối quan hệ
-        Booking.belongsTo(models.Passenger, { foreignKey: 'passenger_id' });
-        Booking.belongsTo(models.Flight, { foreignKey: 'flightNumber' });
+        Booking.belongsTo(models.passenger, { foreignKey: 'passenger_id' });
+        Booking.belongsTo(models.flight, { foreignKey: 'flight_id' });
+        Booking.hasMany(models.ticket, { foreignKey: 'booking_id' }); // Một booking có nhiều ticket
     };
 
     return Booking;

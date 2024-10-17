@@ -22,12 +22,20 @@ db.booking = require("./Bookings.js")(sequelize, Sequelize);
 // Nhập model User
 db.user = require("./user.js")(sequelize, Sequelize); 
 
+// Nhập model Payment
 db.payment = require("./payment.js")(sequelize, Sequelize);
+
+// Nhập model Administrator
+db.administrator = require("./Administrators.js")(sequelize, Sequelize); 
+
+// Nhập model Ticker
+db.ticker = require("./Tickers.js")(sequelize, Sequelize);
 
 // Thiết lập mối quan hệ
 db.booking.associate = function(models) {
     db.booking.belongsTo(models.passenger, { foreignKey: 'passenger_id' });
     db.booking.belongsTo(models.flight, { foreignKey: 'flight_id' });
+    // db.booking.hasMany(models.ticket, { foreignKey: 'booking_id' });
 };
 
 db.passenger.associate = function(models) {
@@ -41,6 +49,14 @@ db.flight.associate = function(models) {
 
 db.payment.associate = function(models) {
     db.payment.belongsTo(models.flight, { foreignKey: 'flightId' });
+};
+
+db.administrator.associate = function(models) {
+    // db.administrator.hasMany(models.someModel, { foreignKey: 'admin_id' });
+}; 
+
+db.ticker.associate = function(models) {
+    // Nếu cần thiết, có thể thêm mối quan hệ ở đây
 };
 
 // Gọi hàm associate cho tất cả các mô hình
